@@ -1,6 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger';
+import { Proprietario } from 'src/app/proprietario-cadastro/entities/proprietario-cadastro.entity';
 import { BaseEntity } from 'src/base/base.entity';
-import { Entity, Column } from 'typeorm';
+import { Entity, Column, ManyToOne } from 'typeorm';
 
 @Entity('funcionario')
 export class Funcionario extends BaseEntity {
@@ -20,7 +21,7 @@ export class Funcionario extends BaseEntity {
 
   @ApiProperty({
     required: true,
-    description: 'Campo contendo o cpf do proprietario.'
+    description: 'Campo contendo o cpf do proprietario.',
   })
   @Column({ name: 'cpf', type: 'varchar', length: 11, nullable: false })
   cpfProprietario: string;
@@ -31,4 +32,7 @@ export class Funcionario extends BaseEntity {
   })
   @Column({ name: 'password', type: 'text', nullable: false })
   password: string;
+
+  @ManyToOne(() => Proprietario, (proprietario) => proprietario.funcionario)
+  proprietario: Proprietario;
 }

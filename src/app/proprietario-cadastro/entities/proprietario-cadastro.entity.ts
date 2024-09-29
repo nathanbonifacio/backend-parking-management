@@ -1,6 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger';
+import { Funcionario } from 'src/app/funcionario-cadastro/entities/funcionario-cadastro.entity';
 import { BaseEntity } from 'src/base/base.entity';
-import { Column, Entity } from 'typeorm';
+import { Column, Entity, OneToMany } from 'typeorm';
 
 @Entity('proprietario')
 export class Proprietario extends BaseEntity {
@@ -42,4 +43,7 @@ export class Proprietario extends BaseEntity {
   })
   @Column({ name: 'senha', type: 'text', nullable: false })
   password: string;
+
+  @OneToMany(() => Funcionario, (funcionario) => funcionario.proprietario)
+  funcionario: Funcionario;
 }
