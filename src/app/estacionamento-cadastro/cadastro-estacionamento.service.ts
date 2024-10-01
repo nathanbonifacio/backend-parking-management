@@ -19,7 +19,7 @@ export class EstacionamentoService extends BaseService<Estacionamento> {
     super(estacionamentoRepository);
   }
 
-  async registrarEstacionamento(
+  async cadastrarEstacionamento(
     cadastrarEstacionamento: CadastrarEstacionamentoDto,
   ): Promise<Estacionamento> {
     const existeProprietario = await this.proprietarioService._getByParams({

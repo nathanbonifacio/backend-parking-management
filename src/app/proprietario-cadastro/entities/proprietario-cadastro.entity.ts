@@ -17,7 +17,7 @@ export class Proprietario extends BaseEntity {
     description: 'Campo contendo o cpf do proprietario.',
   })
   @Column({
-    name: 'cpf_funcionario',
+    name: 'cpf',
     type: 'varchar',
     length: 11,
     nullable: false,
@@ -42,7 +42,7 @@ export class Proprietario extends BaseEntity {
     description: 'Campo contendo a senha do proprietario.',
   })
   @Column({ name: 'senha', type: 'text', nullable: false })
-  password: string;
+  senha: string;
 
   @OneToMany(() => Funcionario, (funcionario) => funcionario.proprietario)
   funcionario: Funcionario;

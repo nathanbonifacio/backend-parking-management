@@ -1,4 +1,3 @@
-/* eslint-disable prettier/prettier */
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { BaseService } from 'src/base/base.service';
 import { Funcionario } from './entities/funcionario-cadastro.entity';
@@ -7,12 +6,14 @@ import { Repository } from 'typeorm';
 import { CriarFuncionarioDto } from './dto/criar-funcionaro.dto';
 import { AtualizarFuncionarioDto } from './dto/atualizar-funcionario.dto';
 import * as bcrypt from 'bcrypt';
+import { ProprietarioService } from '../proprietario-cadastro/proprietario-cadastro.service';
 
 @Injectable()
 export class FuncionarioService extends BaseService<Funcionario> {
   constructor(
     @InjectRepository(Funcionario)
     private readonly funcionarioRepository: Repository<Funcionario>,
+    private readonly proprietarioService: ProprietarioService,
   ) {
     super(funcionarioRepository);
   }
@@ -26,6 +27,12 @@ export class FuncionarioService extends BaseService<Funcionario> {
     if (!existeFuncionario)
       throw new BadRequestException('Funcionário já cadastrado');
 
+    const existeProprietario = await this.proprietarioService._getByParams({
+      cpf: criarFuncionarioDto.cpfProprietario,
+    });
+    if (!existeProprietario)
+      throw new BadRequestException('Proprietário não cadastrado.');
+
     const senhaForte = (criarFuncionarioDto.senha = await bcrypt.hash(
       criarFuncionarioDto.senha,
       await bcrypt.genSalt(),
@@ -37,10 +44,7 @@ export class FuncionarioService extends BaseService<Funcionario> {
     }
 
     if (
-      !(await bcrypt.compare(
-        criarFuncionarioDto.confirmaSenha,
-        senhaForte,
-      ))
+      !(await bcrypt.compare(criarFuncionarioDto.confirmaSenha, senhaForte))
     ) {
       throw new BadRequestException('As senhas não coincidem.');
     }
@@ -62,6 +66,14 @@ export class FuncionarioService extends BaseService<Funcionario> {
     const existeFuncionario = await this._getByParams({ id: funcionarioId });
     if (!existeFuncionario)
       throw new BadRequestException('Funcionário não cadastrado');
+
+    if (atualizarFuncionarioDto.cpfProprietario) {
+      const existeProprietario = await this.proprietarioService._getByParams({
+        cpf: atualizarFuncionarioDto.cpfProprietario,
+      });
+      if (!existeProprietario)
+        throw new BadRequestException('Proprietário não cadastrado.');
+    }
 
     if (atualizarFuncionarioDto.senha) {
       atualizarFuncionarioDto.senha = await bcrypt.hash(

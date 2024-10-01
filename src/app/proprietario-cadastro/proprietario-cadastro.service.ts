@@ -20,10 +20,17 @@ export class ProprietarioService extends BaseService<Proprietario> {
     criarProprietarioDto: CriarProprietarioDto,
   ): Promise<CriarProprietarioDto> {
     const existeProprietario = await this._getByParams({
-      email: criarProprietarioDto.email
+      email: criarProprietarioDto.email,
     });
     if (existeProprietario) {
-      throw new BadRequestException('Email já cadastrado.');
+      throw new BadRequestException('Email e/ou CPF já cadastrado(s).');
+    }
+
+    const existeCPF = await this._getByParams({
+      cpf: criarProprietarioDto.cpf,
+    });
+    if (existeCPF) {
+      throw new BadRequestException('Email e/ou CPF já cadastrado(s).');
     }
 
     const isStrongPassword = (criarProprietarioDto.senha = await bcrypt.hash(
@@ -75,6 +82,15 @@ export class ProprietarioService extends BaseService<Proprietario> {
 
       if (proprietarioComEmail) {
         throw new BadRequestException(atualizarProprietarioDto.email);
+      }
+    }
+
+    if (atualizarProprietarioDto.cpf) {
+      const existeCPF = await this._getByParams({
+        cpf: atualizarProprietarioDto.cpf,
+      });
+      if (existeCPF) {
+        throw new BadRequestException('CPF já cadastrado.');
       }
     }
 

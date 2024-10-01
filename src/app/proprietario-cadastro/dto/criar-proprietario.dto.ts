@@ -43,5 +43,5 @@ export class CriarProprietarioDto {
     minNumbers: 1,
     minSymbols: 1,
   })
-  confirmaSenha: string;
+  confirmaSenha?: string;
 }

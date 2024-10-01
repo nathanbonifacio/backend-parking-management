@@ -5,6 +5,9 @@ import { ProprietarioModule } from './app/proprietario-cadastro/proprietario-cad
 import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { FuncionarioModule } from './app/funcionario-cadastro/funcionario.module';
+import { EstacionamentoModule } from './app/estacionamento-cadastro/cadastro-estacionamento.module';
+import { Proprietario } from './app/proprietario-cadastro/entities/proprietario-cadastro.entity';
+import { Funcionario } from './app/funcionario-cadastro/entities/funcionario-cadastro.entity';
 
 @Module({
   imports: [
@@ -16,9 +19,13 @@ import { FuncionarioModule } from './app/funcionario-cadastro/funcionario.module
       username: 'root',
       password: 'admin',
       database: 'parking_management',
+      entities: [Proprietario, Funcionario],
+      synchronize: false,
+      logging: true,
     }),
     ProprietarioModule,
     FuncionarioModule,
+    EstacionamentoModule,
   ],
   controllers: [AppController],
   providers: [AppService],

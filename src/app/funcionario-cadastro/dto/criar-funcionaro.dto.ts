@@ -1,4 +1,3 @@
-/* eslint-disable prettier/prettier */
 import { ApiProperty } from '@nestjs/swagger';
 import { IsStrongPassword } from 'class-validator';
 
@@ -11,25 +10,25 @@ export class CriarFuncionarioDto {
 
   @ApiProperty({
     required: true,
-    description: 'Campo contendo o nome de um funcionário.'
+    description: 'Campo contendo o nome de um funcionário.',
   })
   nome: string;
 
   @ApiProperty({
     required: true,
-    description: 'Campo contendo o whatsapp de um funcionário.'
+    description: 'Campo contendo o whatsapp de um funcionário.',
   })
   whatsapp: string;
 
   @ApiProperty({
     required: true,
-    description: 'Campo contendo o cpf do proprietario.'
+    description: 'Campo contendo o cpf do proprietario.',
   })
-  cpfProprietario: string;
+  cpfProprietario?: string;
 
   @ApiProperty({
     required: true,
-    description: 'Campo contendo a senha de um funcionário.'
+    description: 'Campo contendo a senha de um funcionário.',
   })
   @IsStrongPassword({
     minLength: 8,
@@ -41,7 +40,7 @@ export class CriarFuncionarioDto {
 
   @ApiProperty({
     required: true,
-    description: 'Campo contendo a confirmação da senha de um funcionário.'
+    description: 'Campo contendo a confirmação da senha de um funcionário.',
   })
   @IsStrongPassword({
     minLength: 8,
