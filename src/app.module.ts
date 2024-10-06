@@ -8,6 +8,7 @@ import { FuncionarioModule } from './app/funcionario-cadastro/funcionario.module
 import { EstacionamentoModule } from './app/estacionamento-cadastro/cadastro-estacionamento.module';
 import { Proprietario } from './app/proprietario-cadastro/entities/proprietario-cadastro.entity';
 import { Funcionario } from './app/funcionario-cadastro/entities/funcionario-cadastro.entity';
+import { Estacionamento } from './app/estacionamento-cadastro/entities/cadastro-estacionamento.entity';
 
 @Module({
   imports: [
@@ -19,7 +20,7 @@ import { Funcionario } from './app/funcionario-cadastro/entities/funcionario-cad
       username: 'root',
       password: 'admin',
       database: 'parking_management',
-      entities: [Proprietario, Funcionario],
+      entities: [Proprietario, Funcionario, Estacionamento],
       synchronize: false,
       logging: true,
     }),

@@ -63,7 +63,7 @@ export class EstacionamentoController {
       'Erro lançado toda vez que um estacionamento a ser atualizado não existe.',
   })
   async atualizarEstacionamento(
-    @Param(':id') id: number,
+    @Param('id') id: number,
     @Body() atualizarEstacionamentoDto: AtualizarCadastroEstacionamento,
   ): Promise<AtualizarCadastroEstacionamento> {
     return this.estacionamntoService.atualizarestacionamento(
@@ -82,7 +82,7 @@ export class EstacionamentoController {
     description:
       'Erro lançado toda vez que um estacionamento a ser deletado não existe.',
   })
-  async deletarEstacionamento(@Param(':id') id: number) {
+  async deletarEstacionamento(@Param('id') id: number) {
     return this.estacionamntoService.deletarEstacionamento(id);
   }
 

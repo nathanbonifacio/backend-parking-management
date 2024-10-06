@@ -66,7 +66,12 @@ export class EstacionamentoService extends BaseService<Estacionamento> {
         throw new BadRequestException('CPF do funcionário não existe!');
     }
 
-    await this.estacionamentoRepository.update(id, atualizarEstacionamento);
+    const estacionamentoParaAtualizar = {
+      ...existeEstacionamento,
+      ...atualizarEstacionamento,
+    };
+
+    await this.estacionamentoRepository.update(id, estacionamentoParaAtualizar);
 
     return this._getByParams({ id: id });
   }
