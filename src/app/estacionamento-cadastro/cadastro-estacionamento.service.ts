@@ -23,13 +23,13 @@ export class EstacionamentoService extends BaseService<Estacionamento> {
     cadastrarEstacionamento: CadastrarEstacionamentoDto,
   ): Promise<Estacionamento> {
     const existeProprietario = await this.proprietarioService._getByParams({
-      cpf: cadastrarEstacionamento.cpfFuncionario,
+      id: cadastrarEstacionamento.proprietarioId,
     });
     if (!existeProprietario)
       throw new BadRequestException('CPF do proprietario não existe!');
 
     const existeFuncionario = await this.funcionarioService._getByParams({
-      cpfFuncionario: cadastrarEstacionamento.cpfFuncionario,
+      id: cadastrarEstacionamento.funcionarioId,
     });
     if (!existeFuncionario)
       throw new BadRequestException('CPF do funcionário não existe!');
@@ -50,17 +50,17 @@ export class EstacionamentoService extends BaseService<Estacionamento> {
     if (!existeEstacionamento)
       throw new BadRequestException('Estacionamento não existe!');
 
-    if (atualizarEstacionamento.cpfProprietario) {
+    if (atualizarEstacionamento.proprietarioId) {
       const existeProprietario = await this.proprietarioService._getByParams({
-        cpf: atualizarEstacionamento.cpfFuncionario,
+        id: atualizarEstacionamento.proprietarioId,
       });
       if (!existeProprietario)
         throw new BadRequestException('CPF do proprietario não existe!');
     }
 
-    if (atualizarEstacionamento.cpfFuncionario) {
+    if (atualizarEstacionamento.funcionarioId) {
       const existeFuncionario = await this.funcionarioService._getByParams({
-        cpfFuncionario: atualizarEstacionamento.cpfFuncionario,
+        id: atualizarEstacionamento.funcionarioId,
       });
       if (!existeFuncionario)
         throw new BadRequestException('CPF do funcionário não existe!');

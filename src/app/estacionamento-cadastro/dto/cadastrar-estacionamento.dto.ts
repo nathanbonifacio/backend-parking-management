@@ -19,10 +19,10 @@ export class CadastrarEstacionamentoDto {
   @ApiProperty({
     description: 'Campo contendo o cpf do proprietario.',
   })
-  cpfProprietario: number;
+  proprietarioId: number;
 
   @ApiProperty({
     description: 'Campo contendo o cpf do funcionario.',
   })
-  cpfFuncionario: number;
+  funcionarioId: number;
 }

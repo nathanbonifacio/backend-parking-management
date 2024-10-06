@@ -24,7 +24,7 @@ export class FuncionarioService extends BaseService<Funcionario> {
     const existeFuncionario = await this._getByParams({
       cpfFuncionario: criarFuncionarioDto.cpfFuncionario,
     });
-    if (!existeFuncionario)
+    if (existeFuncionario)
       throw new BadRequestException('Funcionário já cadastrado');
 
     const existeProprietario = await this.proprietarioService._getByParams({

@@ -1,7 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { Proprietario } from 'src/app/proprietario-cadastro/entities/proprietario-cadastro.entity';
 import { BaseEntity } from 'src/base/base.entity';
-import { Entity, Column, ManyToOne } from 'typeorm';
+import { Entity, Column } from 'typeorm';
 
 @Entity('funcionario')
 export class Funcionario extends BaseEntity {
@@ -49,7 +48,4 @@ export class Funcionario extends BaseEntity {
   })
   @Column({ name: 'senha', type: 'text', nullable: false })
   senha: string;
-
-  @ManyToOne(() => Proprietario, (proprietario) => proprietario.funcionario)
-  proprietario: Proprietario;
 }

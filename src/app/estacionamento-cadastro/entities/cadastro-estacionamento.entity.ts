@@ -2,7 +2,7 @@ import { ApiProperty } from '@nestjs/swagger';
 import { BaseEntity } from 'src/base/base.entity';
 import { Column, Entity } from 'typeorm';
 
-@Entity()
+@Entity('estacionamento')
 export class Estacionamento extends BaseEntity {
   @ApiProperty({
     description: 'Campo contendo o nome do estacionamento.',
@@ -35,12 +35,12 @@ export class Estacionamento extends BaseEntity {
   @ApiProperty({
     description: 'Campo contendo o cpf do proprietario.',
   })
-  @Column({ name: 'cpf_proprietario', type: 'int', nullable: false })
-  cpfProprietario: number;
+  @Column({ name: 'proprietario_id', type: 'int', nullable: false })
+  proprietarioId: number;
 
   @ApiProperty({
     description: 'Campo contendo o cpf do funcionario.',
   })
-  @Column({ name: 'cpf_funcionario', type: 'int', nullable: false })
-  cpfFuncionario: number;
+  @Column({ name: 'funcionario_id', type: 'int', nullable: false })
+  funcionarioId: number;
 }

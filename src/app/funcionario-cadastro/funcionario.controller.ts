@@ -61,7 +61,7 @@ export class FuncionarioController {
       'Erro lançado toda vez que um funcionario a ser atualizado não existe.',
   })
   async atualizarFuncionario(
-    @Param(':id') funcionarioId: number,
+    @Param('id') funcionarioId: number,
     @Body() atualizarFuncionarioDto: AtualizarFuncionarioDto,
   ): Promise<AtualizarFuncionarioDto> {
     return this.funcionarioService.atualizarFuncionario(
@@ -80,7 +80,7 @@ export class FuncionarioController {
     description:
       'Erro lançado toda vez que um funcionario a ser deletado não existe.',
   })
-  async deletarFuncionario(@Param(':id') funcionarioId: number) {
+  async deletarFuncionario(@Param('id') funcionarioId: number) {
     return this.funcionarioService.deletarFuncionario(funcionarioId);
   }
 
