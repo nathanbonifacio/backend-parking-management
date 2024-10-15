@@ -9,6 +9,7 @@ import { EstacionamentoModule } from './app/estacionamento-cadastro/cadastro-est
 import { Proprietario } from './app/proprietario-cadastro/entities/proprietario-cadastro.entity';
 import { Funcionario } from './app/funcionario-cadastro/entities/funcionario-cadastro.entity';
 import { Estacionamento } from './app/estacionamento-cadastro/entities/cadastro-estacionamento.entity';
+import { AutenticacaoModule } from './app/auth/autenticacao.module';
 
 @Module({
   imports: [
@@ -27,6 +28,7 @@ import { Estacionamento } from './app/estacionamento-cadastro/entities/cadastro-
     ProprietarioModule,
     FuncionarioModule,
     EstacionamentoModule,
+    AutenticacaoModule,
   ],
   controllers: [AppController],
   providers: [AppService],
