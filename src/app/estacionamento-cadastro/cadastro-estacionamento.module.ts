@@ -5,6 +5,7 @@ import { Estacionamento } from './entities/cadastro-estacionamento.entity';
 import { EstacionamentoService } from './cadastro-estacionamento.service';
 import { ProprietarioModule } from '../proprietario-cadastro/proprietario-cadastro.module';
 import { FuncionarioModule } from '../funcionario-cadastro/funcionario.module';
+import { UsuarioModule } from '../users/usuarios.module';
 
 @Module({
   controllers: [EstacionamentoController],
@@ -12,6 +13,7 @@ import { FuncionarioModule } from '../funcionario-cadastro/funcionario.module';
     TypeOrmModule.forFeature([Estacionamento]),
     ProprietarioModule,
     FuncionarioModule,
+    UsuarioModule,
   ],
   providers: [EstacionamentoService],
   exports: [EstacionamentoService],

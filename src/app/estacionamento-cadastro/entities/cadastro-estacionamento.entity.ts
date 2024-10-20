@@ -32,15 +32,21 @@ export class Estacionamento extends BaseEntity {
   @Column({ name: 'total_vagas', type: 'int', nullable: false })
   totalvagas: number;
 
-  @ApiProperty({
-    description: 'Campo contendo o cpf do proprietario.',
-  })
-  @Column({ name: 'proprietario_id', type: 'int', nullable: false })
-  proprietarioId: number;
+  // @ApiProperty({
+  //   description: 'Campo contendo o cpf do proprietario.',
+  // })
+  // @Column({ name: 'proprietario_id', type: 'int', nullable: false })
+  // proprietarioId: number;
+
+  // @ApiProperty({
+  //   description: 'Campo contendo o cpf do funcionario.',
+  // })
+  // @Column({ name: 'funcionario_id', type: 'int', nullable: false })
+  // funcionarioId: number;
 
   @ApiProperty({
-    description: 'Campo contendo o cpf do funcionario.',
+    description: 'Campo contendo o ID do usuário.',
   })
-  @Column({ name: 'funcionario_id', type: 'int', nullable: false })
-  funcionarioId: number;
+  @Column({ name: 'usuario_id', type: 'int', nullable: false })
+  usuarioId: number;
 }

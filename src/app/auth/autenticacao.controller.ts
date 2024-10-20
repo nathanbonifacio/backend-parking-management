@@ -1,13 +1,10 @@
-/* eslint-disable prettier/prettier */
 import { Body, Controller, Post } from '@nestjs/common';
 import { AutenticacaoLoginDto } from './dto/autenticacao-login.dto';
 import { AutenticacaoService } from './autenticacao.service';
 
 @Controller('auth')
 export class AutenticacaoController {
-    constructor(
-        private readonly autenticacaoService: AutenticacaoService,
-    ) {}
+  constructor(private readonly autenticacaoService: AutenticacaoService) {}
 
   @Post('login')
   login(@Body() login: AutenticacaoLoginDto) {

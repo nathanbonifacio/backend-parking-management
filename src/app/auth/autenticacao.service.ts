@@ -4,17 +4,15 @@ import {
   UnauthorizedException,
 } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
-import { FuncionarioService } from '../funcionario-cadastro/funcionario.service';
-import { ProprietarioService } from '../proprietario-cadastro/proprietario-cadastro.service';
 import { AutenticacaoLoginDto } from './dto/autenticacao-login.dto';
 import * as bcrypt from 'bcrypt';
+import { UsuariosService } from '../users/usuarios.service';
 
 @Injectable()
 export class AutenticacaoService {
   constructor(
     private readonly jwtService: JwtService,
-    private readonly proprietarioService: ProprietarioService,
-    private readonly funcionarioService: FuncionarioService,
+    private readonly usuarioService: UsuariosService,
   ) {}
 
   // async createToken() {
@@ -26,47 +24,19 @@ export class AutenticacaoService {
   // }
 
   async login(autenticacaoLogin: AutenticacaoLoginDto) {
-    const existeProprietario = await this.proprietarioService._getByParams({
+    const existeUsuario = await this.usuarioService._getByParams({
       email: autenticacaoLogin.email,
     });
 
-    const existeFuncionario = await this.funcionarioService._getByParams({
-      cpfFuncionario: autenticacaoLogin.cpfFuncionario,
-    });
-
-    if (autenticacaoLogin.email) {
-      if (!existeProprietario.email) {
-        throw new UnauthorizedException('Email e/ou senha incorretos.');
-      }
-
-      if (
-        !(await bcrypt.compare(
-          autenticacaoLogin.senha,
-          existeProprietario.senha,
-        ))
-      ) {
-        throw new UnauthorizedException('E-mail e/ou senha incorretos.');
-      }
-
-      return existeProprietario;
+    if (!existeUsuario.email) {
+      throw new UnauthorizedException('Email e/ou senha incorretos.');
     }
 
-    if (autenticacaoLogin.cpfFuncionario) {
-      if (!existeFuncionario.cpfFuncionario) {
-        throw new UnauthorizedException('CPF e/ou senha incorretos.');
-      }
-
-      if (
-        !(await bcrypt.compare(
-          autenticacaoLogin.senha,
-          existeFuncionario.senha,
-        ))
-      ) {
-        throw new UnauthorizedException('CPF e/ou senha incorretos.');
-      }
-
-      return existeFuncionario;
+    if (!(await bcrypt.compare(autenticacaoLogin.senha, existeUsuario.senha))) {
+      throw new UnauthorizedException('E-mail e/ou senha incorretos.');
     }
+
+    return existeUsuario.email;
   }
 
   /* async esqueceuSenha(email?: string, cpfFuncionario?: string) {

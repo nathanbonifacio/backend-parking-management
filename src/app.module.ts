@@ -10,6 +10,8 @@ import { Proprietario } from './app/proprietario-cadastro/entities/proprietario-
 import { Funcionario } from './app/funcionario-cadastro/entities/funcionario-cadastro.entity';
 import { Estacionamento } from './app/estacionamento-cadastro/entities/cadastro-estacionamento.entity';
 import { AutenticacaoModule } from './app/auth/autenticacao.module';
+import { UsuarioModule } from './app/users/usuarios.module';
+import { Usuario } from './app/users/entities/usuario.entity';
 
 @Module({
   imports: [
@@ -21,14 +23,13 @@ import { AutenticacaoModule } from './app/auth/autenticacao.module';
       username: 'root',
       password: 'admin',
       database: 'parking_management',
-      entities: [Proprietario, Funcionario, Estacionamento],
+      entities: [Estacionamento, Usuario],
       synchronize: false,
       logging: true,
     }),
-    ProprietarioModule,
-    FuncionarioModule,
     EstacionamentoModule,
     AutenticacaoModule,
+    UsuarioModule,
   ],
   controllers: [AppController],
   providers: [AppService],

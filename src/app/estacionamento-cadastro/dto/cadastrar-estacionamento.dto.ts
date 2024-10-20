@@ -16,13 +16,18 @@ export class CadastrarEstacionamentoDto {
   })
   totalvagas: number;
 
-  @ApiProperty({
-    description: 'Campo contendo o cpf do proprietario.',
-  })
-  proprietarioId: number;
+  // @ApiProperty({
+  //   description: 'Campo contendo o cpf do proprietario.',
+  // })
+  // proprietarioId: number;
+
+  // @ApiProperty({
+  //   description: 'Campo contendo o cpf do funcionario.',
+  // })
+  // funcionarioId: number;
 
   @ApiProperty({
-    description: 'Campo contendo o cpf do funcionario.',
+    description: 'Campo contendo o ID do usuário.',
   })
-  funcionarioId: number;
+  usuarioId: number;
 }
