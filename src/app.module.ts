@@ -1,17 +1,15 @@
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { ProprietarioModule } from './app/proprietario-cadastro/proprietario-cadastro.module';
 import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { FuncionarioModule } from './app/funcionario-cadastro/funcionario.module';
 import { EstacionamentoModule } from './app/estacionamento-cadastro/cadastro-estacionamento.module';
-import { Proprietario } from './app/proprietario-cadastro/entities/proprietario-cadastro.entity';
-import { Funcionario } from './app/funcionario-cadastro/entities/funcionario-cadastro.entity';
 import { Estacionamento } from './app/estacionamento-cadastro/entities/cadastro-estacionamento.entity';
 import { AutenticacaoModule } from './app/auth/autenticacao.module';
 import { UsuarioModule } from './app/users/usuarios.module';
 import { Usuario } from './app/users/entities/usuario.entity';
+import { MailerModule } from '@nestjs-modules/mailer';
+import { PugAdapter } from '@nestjs-modules/mailer/dist/adapters/pug.adapter';
 
 @Module({
   imports: [
@@ -26,6 +24,26 @@ import { Usuario } from './app/users/entities/usuario.entity';
       entities: [Estacionamento, Usuario],
       synchronize: false,
       logging: true,
+    }),
+    MailerModule.forRoot({
+      transport: {
+        host: 'smtp.ethereal.email',
+        port: 587,
+        auth: {
+            user: 'darian.sauer69@ethereal.email',
+            pass: 'JRAQX27R4bunW5YM2W'
+        }
+      },
+      defaults: {
+        from: '"nest-modules" <darian.sauer69@ethereal.email>',
+      },
+      template: {
+        dir: __dirname + '/templates',
+        adapter: new PugAdapter(),
+        options: {
+          strict: true,
+        },
+      },
     }),
     EstacionamentoModule,
     AutenticacaoModule,

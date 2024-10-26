@@ -6,7 +6,6 @@ import { Usuario } from './entities/usuario.entity';
 import { CriarUsuariosDto } from './dto/criar-usuarios.dto';
 import * as bcrypt from 'bcrypt';
 import { AtualizarUsuarioDto } from './dto/atualizar-usuarios.dto';
-import { UsuarioTipoEnum } from './enum/usuario-tipo.enum';
 
 @Injectable()
 export class UsuariosService extends BaseService<Usuario> {
@@ -38,15 +37,16 @@ export class UsuariosService extends BaseService<Usuario> {
       throw new BadRequestException('As senhas não coincidem.');
     }
 
-    const isStrongPassword = (criarUsuariosDto.senha = await bcrypt.hash(
-      criarUsuariosDto.senha,
-      await bcrypt.genSalt(),
-    ));
-    if (!isStrongPassword) {
+    if (!this.isStrongPassword(criarUsuariosDto.senha)) {
       throw new BadRequestException(
         'A senha deve conter pelo menos 8 caracteres, uma letra minúscula, uma letra maiúscula, um número e um caractere especial.',
       );
     }
+
+    criarUsuariosDto.senha = await bcrypt.hash(
+      criarUsuariosDto.senha,
+      await bcrypt.genSalt(),
+    );
 
     criarUsuariosDto.confirmaSenha = await bcrypt.hash(
       criarUsuariosDto.confirmaSenha,
@@ -55,7 +55,6 @@ export class UsuariosService extends BaseService<Usuario> {
 
     const usuarioParaCriar = {
       ...criarUsuariosDto,
-      tipo: UsuarioTipoEnum.PROPRIETARIO,
     };
 
     const usuario = await this.usuarioRepository.save(usuarioParaCriar);
@@ -124,5 +123,11 @@ export class UsuariosService extends BaseService<Usuario> {
     }
 
     return this.usuarioRepository.delete(usuarioId);
+  }
+
+  isStrongPassword(senha: string): boolean {
+    const strongPasswordRegex =
+      /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/;
+    return strongPasswordRegex.test(senha);
   }
 }

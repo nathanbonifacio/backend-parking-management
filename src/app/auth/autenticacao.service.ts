@@ -1,100 +1,105 @@
-import {
-  Injectable,
-  NotFoundException,
-  UnauthorizedException,
-} from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
-import { AutenticacaoLoginDto } from './dto/autenticacao-login.dto';
 import * as bcrypt from 'bcrypt';
 import { UsuariosService } from '../users/usuarios.service';
+import { CriarUsuariosDto } from '../users/dto/criar-usuarios.dto';
+import { UsuarioTipoEnum } from '../users/enum/usuario-tipo.enum';
+import { MailerService } from '@nestjs-modules/mailer';
 
 @Injectable()
 export class AutenticacaoService {
   constructor(
     private readonly jwtService: JwtService,
-    private readonly usuarioService: UsuariosService,
+    private readonly usuariosService: UsuariosService,
+    private readonly mailerService: MailerService,
   ) {}
 
-  // async createToken() {
-  //   return this.jwtService.sign();
-  // }
+  async validateUser(email: string, senha: string): Promise<any> {
+    const user = await this.usuariosService._getByParams({ email });
+    if (user && (await bcrypt.compare(senha, user.senha))) {
+      const { senha, ...result } = user;
+      return result;
+    }
+    return null;
+  }
 
-  // async checkToken(token: string) {
-  //   return this.jwtService.verify();
-  // }
+  async login(user: any) {
+    const payload = { username: user.email, sub: user.id };
+    return {
+      access_token: this.jwtService.sign(payload),
+    };
+  }
 
-  async login(autenticacaoLogin: AutenticacaoLoginDto) {
-    const existeUsuario = await this.usuarioService._getByParams({
-      email: autenticacaoLogin.email,
+  async register(criarUsuariosDto: CriarUsuariosDto) {
+    return this.usuariosService.criarUsuario({
+      ...criarUsuariosDto,
+      tipo: UsuarioTipoEnum.PROPRIETARIO,
+    });
+  }
+
+  async esqueciSenha(email: string) {
+    const user = await this.usuariosService._getByParams({ email });
+
+    if (!user) {
+      throw new BadRequestException('Email não encontrado na base de dados.');
+    }
+
+    const token = this.jwtService.sign(
+      {
+        id: user.id,
+      },
+      {
+        expiresIn: '30 minutes',
+        subject: String(user.id),
+        issuer: 'esqueci',
+        audience: 'users',
+      },
+    );
+
+    await this.mailerService.sendMail({
+      subject: 'Recuperação de senha',
+      to: 'woodrow.klocko40@ethereal.email',
+      template: 'esqueci',
+      context: {
+        name: user.nome,
+        token,
+      },
     });
 
-    if (!existeUsuario.email) {
-      throw new UnauthorizedException('Email e/ou senha incorretos.');
-    }
-
-    if (!(await bcrypt.compare(autenticacaoLogin.senha, existeUsuario.senha))) {
-      throw new UnauthorizedException('E-mail e/ou senha incorretos.');
-    }
-
-    return existeUsuario.email;
+    return true;
   }
 
-  /* async esqueceuSenha(email?: string, cpfFuncionario?: string) {
-    let usuario;
+  async redefinir(senha: string, token: string) {
+    try {
+      const data: any = this.jwtService.verify(token, {
+        issuer: 'esqueci',
+        audience: 'users',
+      });
 
-    if (email) {
-      usuario = await this.proprietarioService._getByParams({ email });
-      if (!usuario) {
-        throw new NotFoundException(
-          'Proprietário não encontrado com este email.',
-        );
+      if (isNaN(Number(data.id))) {
+        throw new BadRequestException('Token é inválido.');
       }
-    } else if (cpfFuncionario) {
-      usuario = await this.funcionarioService._getByParams({ cpfFuncionario });
-      if (!usuario) {
-        throw new NotFoundException('Funcionário não encontrado com este CPF.');
-      }
-    } else {
-      throw new NotFoundException('Email ou CPF devem ser fornecidos.');
+
+      const salt = await bcrypt.genSalt();
+      const senhaHash = await bcrypt.hash(senha, salt);
+
+      const user = await this.usuariosService._getByParams({
+        id: Number(data.id),
+      });
+
+      const senhaParaAtualizar = {
+        ...user,
+        senha: senhaHash,
+      };
+
+      await this.usuariosService.atualizarUsuario(user.id, senhaParaAtualizar);
+
+      const payload = { username: user.email, sub: user.id };
+      return {
+        access_token: this.jwtService.sign(payload),
+      };
+    } catch (e) {
+      throw new BadRequestException('Erro ao redefinir a senha: ' + e.message);
     }
-
-    // Aqui você pode enviar um e-mail com o link para redefinir a senha ou gerar um token
-    return 'Email ou instruções enviadas para redefinir a senha.';
   }
-
-  async redefinirSenha(
-    email?: string,
-    cpfFuncionario?: string,
-    novaSenha?: string,
-  ) {
-    let usuario;
-
-    if (email) {
-      usuario = await this.proprietarioService._getByParams({ email });
-      if (!usuario) {
-        throw new NotFoundException(
-          'Proprietário não encontrado com este email.',
-        );
-      }
-    } else if (cpfFuncionario) {
-      usuario = await this.funcionarioService._getByParams({ cpfFuncionario });
-      if (!usuario) {
-        throw new NotFoundException('Funcionário não encontrado com este CPF.');
-      }
-    } else {
-      throw new NotFoundException('Email ou CPF devem ser fornecidos.');
-    }
-
-    // Gerar hash da nova senha
-    const hashedSenha = await bcrypt.hash(novaSenha, 10);
-
-    // Atualizar a senha dependendo se é proprietário ou funcionário
-    if (email) {
-      await this.proprietarioService.update(usuario.id, hashedSenha);
-    } else if (cpfFuncionario) {
-      await this.funcionarioService.update(usuario.id, hashedSenha);
-    }
-
-    return 'Senha redefinida com sucesso.';
-  } */
 }

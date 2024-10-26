@@ -6,7 +6,7 @@ export class RedefinirDto {
     required: true,
     description: 'Campo contendo a senha do usuário.',
   })
-  password: string;
+  senha: string;
 
   @IsJWT()
   token: string;
