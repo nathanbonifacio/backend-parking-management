@@ -10,6 +10,8 @@ import { UsuarioModule } from './app/users/usuarios.module';
 import { Usuario } from './app/users/entities/usuario.entity';
 import { MailerModule } from '@nestjs-modules/mailer';
 import { PugAdapter } from '@nestjs-modules/mailer/dist/adapters/pug.adapter';
+import { MensalistasModule } from './app/cadastro-mensalista/cadastro-mensalista.module';
+import { Mensalistas } from './app/cadastro-mensalista/entities/cadastro-mensalista.entity';
 
 @Module({
   imports: [
@@ -21,7 +23,7 @@ import { PugAdapter } from '@nestjs-modules/mailer/dist/adapters/pug.adapter';
       username: 'root',
       password: 'admin',
       database: 'parking_management',
-      entities: [Estacionamento, Usuario],
+      entities: [Estacionamento, Usuario, Mensalistas],
       synchronize: false,
       logging: true,
     }),
@@ -48,6 +50,7 @@ import { PugAdapter } from '@nestjs-modules/mailer/dist/adapters/pug.adapter';
     EstacionamentoModule,
     AutenticacaoModule,
     UsuarioModule,
+    MensalistasModule,
   ],
   controllers: [AppController],
   providers: [AppService],

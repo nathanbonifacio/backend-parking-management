@@ -1,9 +1,9 @@
 import { MigrationInterface, QueryRunner, Table } from 'typeorm';
 
-export class CriacaoDaTabelaEstacionamento1728235080374
+export class CriacaoDaTabelaDeMensalistas1730246260654
   implements MigrationInterface
 {
-  tableName = 'estacionamento';
+  tableName = 'mensalistas';
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.createTable(
       new Table({
@@ -17,36 +17,39 @@ export class CriacaoDaTabelaEstacionamento1728235080374
             isGenerated: true,
           },
           {
-            name: 'estacionamento_nome',
+            name: 'nome',
             type: 'varchar',
-            length: '45',
             isNullable: false,
           },
           {
-            name: 'endereco',
+            name: 'cpf',
             type: 'varchar',
-            length: '45',
+            length: '11',
             isNullable: false,
           },
           {
-            name: 'total_vagas',
+            name: 'email',
+            type: 'varchar',
+            length: '100',
+            isUnique: true,
+            isNullable: false,
+          },
+          {
+            name: 'whatsapp',
+            type: 'varchar',
+            length: '11',
+            isNullable: false,
+          },
+          {
+            name: 'estacionamento_id',
             type: 'int',
             isNullable: false,
           },
-          // {
-          //   name: 'proprietario_id',
-          //   type: 'int',
-          //   isNullable: false,
-          // },
-          // {
-          //   name: 'funcionario_id',
-          //   type: 'int',
-          //   isNullable: false,
-          // },
           {
             name: 'created_at',
             type: 'timestamp',
             default: 'now()',
+            isNullable: false,
           },
           {
             name: 'updated_at',
@@ -55,18 +58,13 @@ export class CriacaoDaTabelaEstacionamento1728235080374
             isNullable: true,
           },
         ],
-        // foreignKeys: [
-        //   {
-        //     columnNames: ['proprietario_id'],
-        //     referencedColumnNames: ['id'],
-        //     referencedTableName: 'proprietario',
-        //   },
-        //   {
-        //     columnNames: ['funcionario_id'],
-        //     referencedColumnNames: ['id'],
-        //     referencedTableName: 'funcionario',
-        //   },
-        // ],
+        foreignKeys: [
+          {
+            columnNames: ['estacionamento_id'],
+            referencedColumnNames: ['id'],
+            referencedTableName: 'estacionamento',
+          },
+        ],
       }),
     );
   }
