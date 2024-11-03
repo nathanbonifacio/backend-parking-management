@@ -27,9 +27,10 @@ export class EstacionamentoService extends BaseService<Estacionamento> {
     if (!existeUsuario || existeUsuario.tipo !== UsuarioTipoEnum.PROPRIETARIO)
       throw new BadRequestException('Proprietário não encontrado!');
 
-    const estacionamento = await this.estacionamentoRepository.save(
-      cadastrarEstacionamento,
-    );
+    const estacionamento = await this.estacionamentoRepository.save({
+      ...cadastrarEstacionamento,
+      usuarioId: existeUsuario.id
+    });
     return estacionamento;
   }
 

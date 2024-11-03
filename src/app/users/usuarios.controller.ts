@@ -44,6 +44,24 @@ export class UsuariosController {
     return this.usuariosService.criarUsuario(criarUsuariosDto);
   }
 
+  @Post('funcionario')
+  @ApiOperation({ summary: 'Cria um novo funcionário.' })
+  @ApiCreatedResponse({
+    type: CriarUsuariosDto,
+    description:
+      'Valor retornado toda vez que um funcionário é cadastrado com sucesso.',
+  })
+  @ApiUnprocessableEntityResponse({
+    type: null,
+    description:
+      'Erro lançado toda vez que um campo é preenchido incorretamente.',
+  })
+  async criarFuncionario(
+    @Body() criarUsuariosDto: CriarUsuariosDto,
+  ): Promise<CriarUsuariosDto> {
+    return this.usuariosService.criarFuncionario(criarUsuariosDto);
+  }
+
   @Put(':id')
   @ApiOperation({ summary: 'Atualiza um usuário pelo Id.' })
   @ApiOkResponse({

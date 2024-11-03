@@ -6,6 +6,7 @@ import { Usuario } from './entities/usuario.entity';
 import { CriarUsuariosDto } from './dto/criar-usuarios.dto';
 import * as bcrypt from 'bcrypt';
 import { AtualizarUsuarioDto } from './dto/atualizar-usuarios.dto';
+import { UsuarioTipoEnum } from './enum/usuario-tipo.enum';
 
 @Injectable()
 export class UsuariosService extends BaseService<Usuario> {
@@ -60,6 +61,13 @@ export class UsuariosService extends BaseService<Usuario> {
     const usuario = await this.usuarioRepository.save(usuarioParaCriar);
 
     return usuario;
+  }
+
+  async criarFuncionario(criarUsuariosDto: CriarUsuariosDto) {
+    return this.criarUsuario({
+      ...criarUsuariosDto,
+      tipo: UsuarioTipoEnum.FUNCIONARIO,
+    });
   }
 
   async atualizarUsuario(
