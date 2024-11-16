@@ -55,4 +55,11 @@ export class Usuario extends BaseEntity {
   })
   @Column({ name: 'senha', type: 'text', nullable: false })
   senha: string;
+
+  @ApiProperty({
+    nullable: true,
+    description: 'Campo contendo o estacionamento do funcionário.'
+  })
+  @Column({ name: 'estacionamento', type: 'text', nullable: true })
+  estacionamento?: string;
 }

@@ -1,4 +1,9 @@
-import { BadRequestException, Injectable } from '@nestjs/common';
+import {
+  BadRequestException,
+  forwardRef,
+  Inject,
+  Injectable,
+} from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { BaseService } from 'src/base/base.service';
 import { Not, Repository } from 'typeorm';
@@ -7,12 +12,15 @@ import { CriarUsuariosDto } from './dto/criar-usuarios.dto';
 import * as bcrypt from 'bcrypt';
 import { AtualizarUsuarioDto } from './dto/atualizar-usuarios.dto';
 import { UsuarioTipoEnum } from './enum/usuario-tipo.enum';
+import { EstacionamentoService } from '../estacionamento-cadastro/cadastro-estacionamento.service';
 
 @Injectable()
 export class UsuariosService extends BaseService<Usuario> {
   constructor(
     @InjectRepository(Usuario)
     private readonly usuarioRepository: Repository<Usuario>,
+    @Inject(forwardRef(() => EstacionamentoService))
+    private readonly estacionamentoService: EstacionamentoService,
   ) {
     super(usuarioRepository);
   }
@@ -53,6 +61,12 @@ export class UsuariosService extends BaseService<Usuario> {
       criarUsuariosDto.confirmaSenha,
       await bcrypt.genSalt(),
     );
+
+    const existeEstacionamento = await this.estacionamentoService._getByParams({
+      estacionamentoNome: criarUsuariosDto.estacionamento,
+    });
+    if (!existeEstacionamento)
+      throw new BadRequestException('Estacionamento não encontrado!');
 
     const usuarioParaCriar = {
       ...criarUsuariosDto,

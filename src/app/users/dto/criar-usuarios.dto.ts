@@ -30,6 +30,12 @@ export class CriarUsuariosDto {
 
   @ApiProperty({
     required: true,
+    description: 'Campo contendo o estacionamento do funcionário.'
+  })
+  estacionamento?: string;
+
+  @ApiProperty({
+    required: true,
     description: 'Campo contendo a senha do usuário.',
   })
   @IsStrongPassword({
