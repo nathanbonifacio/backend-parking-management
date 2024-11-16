@@ -12,6 +12,8 @@ import { MailerModule } from '@nestjs-modules/mailer';
 import { PugAdapter } from '@nestjs-modules/mailer/dist/adapters/pug.adapter';
 import { MensalistasModule } from './app/cadastro-mensalista/cadastro-mensalista.module';
 import { Mensalistas } from './app/cadastro-mensalista/entities/cadastro-mensalista.entity';
+import { Veiculos } from './app/cadastro-veiculos/entities/veiculos.entity';
+import { VeiculosModule } from './app/cadastro-veiculos/cadastro-veiculos.module';
 
 @Module({
   imports: [
@@ -23,7 +25,7 @@ import { Mensalistas } from './app/cadastro-mensalista/entities/cadastro-mensali
       username: 'root',
       password: 'admin',
       database: 'parking_management',
-      entities: [Estacionamento, Usuario, Mensalistas],
+      entities: [Estacionamento, Usuario, Mensalistas, Veiculos],
       synchronize: false,
       logging: true,
     }),
@@ -32,9 +34,9 @@ import { Mensalistas } from './app/cadastro-mensalista/entities/cadastro-mensali
         host: 'smtp.ethereal.email',
         port: 587,
         auth: {
-            user: 'darian.sauer69@ethereal.email',
-            pass: 'JRAQX27R4bunW5YM2W'
-        }
+          user: 'darian.sauer69@ethereal.email',
+          pass: 'JRAQX27R4bunW5YM2W',
+        },
       },
       defaults: {
         from: '"nest-modules" <darian.sauer69@ethereal.email>',
@@ -51,6 +53,7 @@ import { Mensalistas } from './app/cadastro-mensalista/entities/cadastro-mensali
     AutenticacaoModule,
     UsuarioModule,
     MensalistasModule,
+    VeiculosModule,
   ],
   controllers: [AppController],
   providers: [AppService],
