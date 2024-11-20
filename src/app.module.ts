@@ -14,6 +14,8 @@ import { MensalistasModule } from './app/cadastro-mensalista/cadastro-mensalista
 import { Mensalistas } from './app/cadastro-mensalista/entities/cadastro-mensalista.entity';
 import { Veiculos } from './app/cadastro-veiculos/entities/veiculos.entity';
 import { VeiculosModule } from './app/cadastro-veiculos/cadastro-veiculos.module';
+import { EntradaSaida } from './app/entradas-e-saidas/entities/entrada-saida.entity';
+import { EntradaSaidaModule } from './app/entradas-e-saidas/entrada-saida.module';
 
 @Module({
   imports: [
@@ -25,7 +27,7 @@ import { VeiculosModule } from './app/cadastro-veiculos/cadastro-veiculos.module
       username: 'root',
       password: 'admin',
       database: 'parking_management',
-      entities: [Estacionamento, Usuario, Mensalistas, Veiculos],
+      entities: [Estacionamento, Usuario, Mensalistas, Veiculos, EntradaSaida],
       synchronize: false,
       logging: true,
     }),
@@ -54,6 +56,7 @@ import { VeiculosModule } from './app/cadastro-veiculos/cadastro-veiculos.module
     UsuarioModule,
     MensalistasModule,
     VeiculosModule,
+    EntradaSaidaModule,
   ],
   controllers: [AppController],
   providers: [AppService],
