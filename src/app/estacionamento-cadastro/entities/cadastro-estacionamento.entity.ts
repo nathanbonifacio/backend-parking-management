@@ -49,4 +49,10 @@ export class Estacionamento extends BaseEntity {
   })
   @Column({ name: 'usuario_id', type: 'int', nullable: false })
   usuarioId: number;
+
+  @Column({ name: 'valor_hora', type: 'double', nullable: true })
+  valorHora: number;
+
+  @Column({ name: 'valor_mais_horas', type: 'double', nullable: true })
+  valorMaisHoras: number;
 }

@@ -23,25 +23,10 @@ export class EntradaSaidaService extends BaseService<EntradaSaida> {
   async cadastrarEntradaSaida(
     registrar: RegistrarEntradasESaidasDto,
   ): Promise<RegistrarEntradasESaidasDto> {
-    // const existeMensalista = await this.mensalistaService._getByParams({
-    //   cpf: cadastrarVeiculos.cpfMensalista,
-    // });
-    // if (!existeMensalista)
-    //   throw new BadRequestException('Mensalista não encontrado!');
 
-    // if (cadastrarVeiculos.cpfMensalista) {
-    //   const existeEstacionamento =
-    //     await this.estacionamentoService._getByParams({
-    //       id: cadastrarVeiculos.estacionamentoId,
-    //     });
-    //   if (!existeEstacionamento)
-    //     throw new BadRequestException('Estacionamento não encontrado!');
-    // }
+    const entradaSaida = await this.entradaSaidaRepository.save(registrar);
 
-    // const veiculo = await this.veiculosRepository.save(cadastrarVeiculos);
-
-    // return veiculo;
-    return null;
+    return entradaSaida;
   }
 
   async atualizarEntradaSaida(

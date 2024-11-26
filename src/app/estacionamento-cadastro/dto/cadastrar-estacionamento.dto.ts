@@ -30,4 +30,8 @@ export class CadastrarEstacionamentoDto {
     description: 'Campo contendo o ID do usuário.',
   })
   usuarioId: number;
+
+  valorHora: number;
+
+  valorMaisHoras: number;
 }
