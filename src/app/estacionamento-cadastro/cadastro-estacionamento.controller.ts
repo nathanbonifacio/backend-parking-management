@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import {
   Body,
   Controller,
@@ -101,5 +102,10 @@ export class EstacionamentoController {
   })
   findOne(@Param('id') id: number) {
     return this.estacionamntoService.find(id);
+  }
+
+  @Get('/getall/:id')
+  async findAll(@Param('id') id: string): Promise<Estacionamento[]> {
+    return this.estacionamntoService.findAll(Number(id));
   }
 }

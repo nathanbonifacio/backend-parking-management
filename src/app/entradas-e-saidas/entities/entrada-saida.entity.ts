@@ -76,4 +76,7 @@ export class EntradaSaida extends BaseEntity {
     nullable: true,
   })
   cpfMensalista: string;
+
+  @Column({ name: 'estacionamento_id', type: 'int', nullable: true })
+  estacionamentoId: number;
 }

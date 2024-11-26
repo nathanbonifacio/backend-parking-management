@@ -56,4 +56,6 @@ export class RegistrarEntradasESaidasDto {
     description: 'Campo contendo o cpf do mensalista',
   })
   cpfMensalista: string;
+
+  estacionamentoId: number;
 }

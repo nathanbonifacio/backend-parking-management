@@ -72,4 +72,10 @@ export class EstacionamentoService extends BaseService<Estacionamento> {
 
     return await this.estacionamentoRepository.delete(id);
   }
+
+  async findAll(usuarioId: number): Promise<Estacionamento[]> {
+    return this.estacionamentoRepository.find({
+      where: { usuarioId },
+    });
+  }
 }

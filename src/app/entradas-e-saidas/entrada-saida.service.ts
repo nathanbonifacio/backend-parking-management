@@ -1,4 +1,3 @@
-/* eslint-disable prettier/prettier */
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { BaseService } from 'src/base/base.service';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -23,7 +22,6 @@ export class EntradaSaidaService extends BaseService<EntradaSaida> {
   async cadastrarEntradaSaida(
     registrar: RegistrarEntradasESaidasDto,
   ): Promise<RegistrarEntradasESaidasDto> {
-
     const entradaSaida = await this.entradaSaidaRepository.save(registrar);
 
     return entradaSaida;
@@ -33,24 +31,23 @@ export class EntradaSaidaService extends BaseService<EntradaSaida> {
     id: number,
     atualizar: AtualizarEntradasESaidasDto,
   ) {
-    // const existeVeiculo = await this._getByParams({
-    //   id: veiculoId,
-    // });
-    // if (!existeVeiculo)
-    //   throw new BadRequestException('veículo não encontrado!');
+    const existe = await this._getByParams({
+      id: id,
+    });
+    if (!existe) throw new BadRequestException('Registro não encontrado!');
 
-    // const veiculoParaAtualizar = {
-    //   ...existeVeiculo,
-    //   ...atualizarVeiculo,
-    //   updatedAt: new Date(),
-    // };
+    const entradaESaidaParaAtualizar = {
+      ...existe,
+      ...atualizar,
+      updatedAt: new Date(),
+    };
 
-    // const veiculo = await this.veiculosRepository.update(
-    //   veiculoId,
-    //   veiculoParaAtualizar,
-    // );
+    const veiculo = await this.entradaSaidaRepository.update(
+      id,
+      entradaESaidaParaAtualizar,
+    );
 
-    // return veiculo;
+    return veiculo;
   }
 
   async deletarRegistro(id: number) {
