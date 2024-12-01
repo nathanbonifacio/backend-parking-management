@@ -7,7 +7,6 @@ import {
   Param,
   Post,
   Put,
-  Query,
 } from '@nestjs/common';
 import {
   ApiCreatedResponse,
@@ -22,8 +21,6 @@ import { EstacionamentoService } from './cadastro-estacionamento.service';
 import { CadastrarEstacionamentoDto } from './dto/cadastrar-estacionamento.dto';
 import { AtualizarCadastroEstacionamento } from './dto/atualizar-estacionamento.dto';
 import { Estacionamento } from './entities/cadastro-estacionamento.entity';
-import { SearchInput } from 'src/common/dto/search-input.dto';
-import { SearchResult } from 'src/common/dto/search-result.dto';
 
 @ApiTags('Estacionamento')
 @Controller('estacionamento')

@@ -7,18 +7,32 @@ import { TipoClienteEnum } from '../enum/tipo-cliente.enum';
 @Entity('entrada_saida')
 export class EntradaSaida extends BaseEntity {
   @ApiProperty({
-    nullable: true,
-    description: 'Campo contendo o horário de entrada do veículo',
+    required: false,
+    description: 'Campo contendo o id do veículo',
   })
-  @Column({ name: 'horario_entrada', type: 'datetime', nullable: true })
-  horarioEntrada: Date;
+  @Column({ name: 'veiculo_id', type: 'int', nullable: true })
+  veiculoId: number;
+
+  @ApiProperty({
+    nullable: true,
+    description: 'Campo contendo o id do estacionamento',
+  })
+  @Column({ name: 'estacionamento_id', type: 'int', nullable: true })
+  estacionamentoId: number;
+
+  // @ApiProperty({
+  //   nullable: true,
+  //   description: 'Campo contendo o horário de entrada do veículo',
+  // })
+  // @Column({ name: 'horario_entrada', type: 'datetime', nullable: true })
+  // horarioEntrada: Date;
 
   @ApiProperty({
     nullable: true,
     description: 'Campo contendo o horário de saída do veículo',
   })
-  @Column({ name: 'horario_saida', type: 'datetime', nullable: true })
-  horario_saida: Date;
+  @Column({ name: 'horario_saida', type: 'timestamp', nullable: true })
+  horarioSaida: Date;
 
   @ApiProperty({
     nullable: true,
@@ -27,12 +41,12 @@ export class EntradaSaida extends BaseEntity {
   @Column({ name: 'valor_pago', type: 'double', nullable: true })
   valorPago: number;
 
-  @ApiProperty({
-    nullable: true,
-    description: 'Campo contendo a placa do veículo',
-  })
-  @Column({ name: 'veiculo_placa', type: 'varchar', nullable: true })
-  veiculoPlaca: string;
+  // @ApiProperty({
+  //   nullable: true,
+  //   description: 'Campo contendo a placa do veículo',
+  // })
+  // @Column({ name: 'veiculo_placa', type: 'varchar', nullable: true })
+  // veiculoPlaca: string;
 
   @ApiProperty({
     nullable: true,
@@ -76,7 +90,4 @@ export class EntradaSaida extends BaseEntity {
     nullable: true,
   })
   cpfMensalista: string;
-
-  @Column({ name: 'estacionamento_id', type: 'int', nullable: true })
-  estacionamentoId: number;
 }

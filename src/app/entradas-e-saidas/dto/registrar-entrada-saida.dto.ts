@@ -5,15 +5,27 @@ import { TipoClienteEnum } from '../enum/tipo-cliente.enum';
 export class RegistrarEntradasESaidasDto {
   @ApiProperty({
     required: false,
-    description: 'Campo contendo o horário de entrada do veículo',
+    description: 'Campo contendo o id do veículo',
   })
-  horarioEntrada: Date;
+  veiculoId: number;
+
+  @ApiProperty({
+    required: false,
+    description: 'Campo contendo o id do estacionamento',
+  })
+  estacionamentoId: number;
+
+  // @ApiProperty({
+  //   required: false,
+  //   description: 'Campo contendo o horário de entrada do veículo',
+  // })
+  // horarioEntrada: Date;
 
   @ApiProperty({
     required: false,
     description: 'Campo contendo o horário de saída do veículo',
   })
-  horario_saida: Date;
+  horarioSaida: Date;
 
   @ApiProperty({
     required: false,
@@ -21,11 +33,11 @@ export class RegistrarEntradasESaidasDto {
   })
   valorPago: number;
 
-  @ApiProperty({
-    required: false,
-    description: 'Campo contendo a placa do veículo',
-  })
-  veiculoPlaca: string;
+  // @ApiProperty({
+  //   required: false,
+  //   description: 'Campo contendo a placa do veículo',
+  // })
+  // veiculoPlaca: string;
 
   @ApiProperty({
     required: false,
@@ -56,6 +68,4 @@ export class RegistrarEntradasESaidasDto {
     description: 'Campo contendo o cpf do mensalista',
   })
   cpfMensalista: string;
-
-  estacionamentoId: number;
 }

@@ -5,6 +5,7 @@ import { EstacionamentoModule } from '../estacionamento-cadastro/cadastro-estaci
 import { EntradaSaidaController } from './entrada-saida.controller';
 import { EntradaSaida } from './entities/entrada-saida.entity';
 import { EntradaSaidaService } from './entrada-saida.service';
+import { VeiculosModule } from '../cadastro-veiculos/cadastro-veiculos.module';
 
 @Module({
   controllers: [EntradaSaidaController],
@@ -12,6 +13,7 @@ import { EntradaSaidaService } from './entrada-saida.service';
     TypeOrmModule.forFeature([EntradaSaida]),
     MensalistasModule,
     EstacionamentoModule,
+    VeiculosModule,
   ],
   providers: [EntradaSaidaService],
   exports: [EntradaSaidaService],

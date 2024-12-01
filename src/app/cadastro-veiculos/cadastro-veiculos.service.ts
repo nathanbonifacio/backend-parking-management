@@ -22,19 +22,18 @@ export class VeiculossService extends BaseService<Veiculos> {
   async cadastrarVeiculo(
     cadastrarVeiculos: CadastrarVeiculosDto,
   ): Promise<CadastrarVeiculosDto> {
-    const existeMensalista = await this.mensalistaService._getByParams({
-      cpf: cadastrarVeiculos.cpfMensalista,
+    const existeEstacionamento = await this.estacionamentoService._getByParams({
+      id: cadastrarVeiculos.estacionamentoId,
     });
-    if (!existeMensalista)
-      throw new BadRequestException('Mensalista não encontrado!');
+    if (!existeEstacionamento)
+      throw new BadRequestException('Estacionamento não encontrado!');
 
     if (cadastrarVeiculos.cpfMensalista) {
-      const existeEstacionamento =
-        await this.estacionamentoService._getByParams({
-          id: cadastrarVeiculos.estacionamentoId,
-        });
-      if (!existeEstacionamento)
-        throw new BadRequestException('Estacionamento não encontrado!');
+      const existeMensalista = await this.mensalistaService._getByParams({
+        cpf: cadastrarVeiculos.cpfMensalista,
+      });
+      if (!existeMensalista)
+        throw new BadRequestException('Mensalista não encontrado!');
     }
 
     const veiculo = await this.veiculosRepository.save(cadastrarVeiculos);
