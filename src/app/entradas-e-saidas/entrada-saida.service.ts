@@ -64,16 +64,6 @@ export class EntradaSaidaService extends BaseService<EntradaSaida> {
         (diffHours - 1) * valorDemaisHorasEstacionamento;
     }
 
-    console.log();
-    console.log({'valorPrimeiraHoraEstacionamento: ': valorPrimeiraHoraEstacionamento});
-    console.log({'valorDemaisHorasEstacionamento: ': valorDemaisHorasEstacionamento});
-    console.log({'horarioEntrada: ': horarioEntrada});
-    console.log({'horarioSaida: ': horarioSaida});
-    console.log({'diffMilliseconds': diffMilliseconds});
-    console.log({'diffHours': diffHours});
-    console.log({'valorTotal': valorTotal});
-    console.log();
-
     const registrarEntradaSaida = {
       ...registrar,
       horarioSaida: horarioSaida,
