@@ -73,4 +73,10 @@ export class VeiculossService extends BaseService<Veiculos> {
 
     return this.veiculosRepository.delete(veiculoId);
   }
+
+  async findAll(estacionamentoId: number): Promise<Veiculos[]> {
+    return this.veiculosRepository.find({
+      where: { estacionamentoId },
+    });
+  }
 }

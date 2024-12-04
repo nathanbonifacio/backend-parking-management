@@ -92,4 +92,9 @@ export class VeiculosController {
   findOne(@Param('id') veiculoId: number) {
     return this.veiculosService.find(veiculoId);
   }
+
+  @Get('/getall/:id')
+  async findAll(@Param('id') id: string): Promise<Veiculos[]> {
+    return this.veiculosService.findAll(Number(id));
+  }
 }
