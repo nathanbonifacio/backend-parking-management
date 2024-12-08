@@ -60,13 +60,13 @@ export class AutenticacaoController {
   }
 
   @Post('esqueci')
-  async esqueci(@Body() {email}: EsqueciSenhaDto) {
-      return this.autenticacaoService.esqueciSenha(email);
+  async esqueci(@Body() { email }: EsqueciSenhaDto) {
+    return this.autenticacaoService.esqueciSenha(email);
   }
 
   @Post('redefinir')
-  async redefinir(@Body() {senha, token}: RedefinirDto) {
-      return this.autenticacaoService.redefinir(senha, token);
+  async redefinir(@Body() { senha, token }: RedefinirDto) {
+    return this.autenticacaoService.redefinir(senha, token);
   }
 
   @UseGuards(JwtAuthGuard)

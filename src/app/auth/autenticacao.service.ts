@@ -59,7 +59,8 @@ export class AutenticacaoService {
 
     await this.mailerService.sendMail({
       subject: 'Recuperação de senha',
-      to: 'woodrow.klocko40@ethereal.email',
+      //to: 'woodrow.klocko40@ethereal.email',
+      to: '',
       template: 'esqueci',
       context: {
         name: user.nome,
