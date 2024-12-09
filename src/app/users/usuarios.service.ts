@@ -106,21 +106,21 @@ export class UsuariosService extends BaseService<Usuario> {
       }
     }
 
-    if (atualizarUsuariosDto.cpf) {
-      const existeCPF = await this._getByParams({
-        cpf: atualizarUsuariosDto.cpf,
-      });
-      if (existeCPF) {
-        throw new BadRequestException('CPF já cadastrado.');
-      }
-    }
+    // if (atualizarUsuariosDto.cpf) {
+    //   const existeCPF = await this._getByParams({
+    //     cpf: atualizarUsuariosDto.cpf,
+    //   });
+    //   if (existeCPF) {
+    //     throw new BadRequestException('CPF já cadastrado.');
+    //   }
+    // }
 
-    if (atualizarUsuariosDto.senha) {
-      atualizarUsuariosDto.senha = await bcrypt.hash(
-        atualizarUsuariosDto.senha,
-        await bcrypt.genSalt(),
-      );
-    }
+    // if (atualizarUsuariosDto.senha) {
+    //   atualizarUsuariosDto.senha = await bcrypt.hash(
+    //     atualizarUsuariosDto.senha,
+    //     await bcrypt.genSalt(),
+    //   );
+    // }
 
     const usuarioParaAtualizar = {
       ...existeUsuario,

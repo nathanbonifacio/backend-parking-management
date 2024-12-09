@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import {
   Body,
   Controller,
@@ -65,8 +66,8 @@ export class AutenticacaoController {
   }
 
   @Post('redefinir')
-  async redefinir(@Body() { senha, token }: RedefinirDto) {
-    return this.autenticacaoService.redefinir(senha, token);
+  async redefinir(@Body() dto: RedefinirDto) {
+    return this.autenticacaoService.redefinir(dto);
   }
 
   @UseGuards(JwtAuthGuard)

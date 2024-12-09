@@ -37,6 +37,7 @@
     "bcryptjs": "^2.4.3",
     "class-validator": "^0.14.1",
     "mysql2": "^3.11.3",
+    "node-cache": "^5.1.2",
     "nodemailer": "^6.9.15",
     "passport": "^0.7.0",
     "passport-jwt": "^4.0.1",

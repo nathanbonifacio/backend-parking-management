@@ -9,5 +9,7 @@ export class RedefinirDto {
   senha: string;
 
   @IsJWT()
-  token: string;
+  token?: string;
+
+  code: string;
 }
