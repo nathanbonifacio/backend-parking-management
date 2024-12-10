@@ -36,12 +36,12 @@ import { EntradaSaidaModule } from './app/entradas-e-saidas/entrada-saida.module
         host: 'smtp.ethereal.email',
         port: 587,
         auth: {
-          user: 'leonor72@ethereal.email',
-          pass: 'NBC7qNmn7wyy9W3yqK',
+          user: 'harley.tremblay@ethereal.email',
+          pass: 'ACnG4CFjyXnHx3kCyx',
         },
       },
       defaults: {
-        from: '"nest-modules" <leonor72@ethereal.email>',
+        from: '"nest-modules" <harley.tremblay@ethereal.email>',
       },
       template: {
         dir: __dirname + '/templates',

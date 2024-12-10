@@ -69,4 +69,10 @@ export class MensalistasService extends BaseService<Mensalistas> {
 
     return this.mensalistasRepository.delete(mensalistaId);
   }
+
+  async findAll(estacionamentoId: number): Promise<Mensalistas[]> {
+    return this.mensalistasRepository.find({
+      where: { estacionamentoId },
+    });
+  }
 }

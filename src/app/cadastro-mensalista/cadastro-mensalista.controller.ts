@@ -97,4 +97,9 @@ export class MensalistasController {
   findOne(@Param('id') mensalistaId: number) {
     return this.mensalistasService.find(mensalistaId);
   }
+
+  @Get('/getall/:id')
+  async findAll(@Param('id') id: string): Promise<Mensalistas[]> {
+    return this.mensalistasService.findAll(Number(id));
+  }
 }
