@@ -115,4 +115,9 @@ export class UsuariosController {
   findOne(@Param('id') usuarioId: number) {
     return this.usuariosService.find(usuarioId);
   }
+
+  @Get('/getall/:id')
+  async findAll(@Param('id') id: string): Promise<Usuario[]> {
+    return this.usuariosService.findAll(Number(id));
+  }
 }

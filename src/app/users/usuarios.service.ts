@@ -152,4 +152,10 @@ export class UsuariosService extends BaseService<Usuario> {
       /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/;
     return strongPasswordRegex.test(senha);
   }
+
+  async findAll(id: number): Promise<Usuario[]> {
+    return this.usuarioRepository.find({
+      where: { id },
+    });
+  }
 }
